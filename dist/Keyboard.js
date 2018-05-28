@@ -80,6 +80,17 @@ var VirtualKeyboard = function (_Component) {
         }
       };
 
+      this.props.options.canceled = function (event, keyboard, el) {
+        _this2.handleChange('', el.value);
+        if (typeof _this2.props.onCanceled === 'function') {
+          _this2.props.onCanceled(el.value);
+        }
+        if (_this2.props.debug) {
+          console.log('The content "' + el.value + '" was canceled');
+        }
+      };
+
+
       // Set Class to visible
       this.props.options.visible = function () {
         _this2.setState({
@@ -127,7 +138,7 @@ var VirtualKeyboard = function (_Component) {
       /**
        * Get keyboard plugin interface
        * Useful for accessing root plugin functionality
-       * 
+       *
        * @example
        * // Listen for enter button press
        * this.keyboard.interface.keyaction.enter = (base) => {
@@ -203,6 +214,7 @@ VirtualKeyboard.propTypes = {
   value: _propTypes2.default.string,
   options: _propTypes2.default.object,
   onAccepted: _propTypes2.default.func,
+  onCanceled: _propTypes2.default.func,
   onChange: _propTypes2.default.func,
   debug: _propTypes2.default.bool,
   validation: _propTypes2.default.func
